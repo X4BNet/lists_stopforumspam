@@ -17,10 +17,12 @@ jobs:
         sudo apt-get install ipcalc zutils
     - name: Downloading SFS IP list
       run: |
-        curl http://www.stopforumspam.com/downloads/listed_ip_1.zip | zcat > /tmp/cf.lsv
+        curl http://www.stopforumspam.com/downloads/listed_ip_1.zip > /tmp/sfs.lsv.zip
+        unzip /tmp/sfs.lsv.zip
+        mv listed_ip_1.txt /tmp/sfs.lsv
     - name: Build list
       run: |
-        perl ./helpers/cleanup.pl /tmp/cf.lsv > ipv4.txt
+        perl ./helpers/cleanup.pl /tmp/sfs.lsv > ipv4.txt
     - name: Push Output of ipv4.txt
       uses: dmnemec/copy_file_to_another_repo_action@main
       env:
