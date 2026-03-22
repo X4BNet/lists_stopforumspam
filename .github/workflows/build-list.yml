@@ -36,11 +36,11 @@ jobs:
 
         ips_covered=$(awk -F/ 'BEGIN{a=0}{a+=2^(32-$2)}END{print a}' ipv4.txt)
         if [[ "$ips_covered" -lt 3000 ]]; then
-          echo "Too few addresses covered"
+          echo "Too few addresses covered ($ips_covered)"
           exit 1
         fi
         if [[ "$ips_covered" -gt 30000 ]]; then
-          echo "Too many addresses covered"
+          echo "Too many addresses covered ($ips_covered)"
           exit 1
         fi
     - name: Push Output of ipv4.txt
