@@ -19,7 +19,7 @@ jobs:
       run: |
         curl https://www.stopforumspam.com/downloads/bannedips.zip /tmp/sfs.csv.zip
         unzip /tmp/sfs.csv.zip
-        cat banned_ips.csv | tr ',' '\n' > /tmp/sfs.lsv
+        cat bannedips.csv | tr ',' '\n' > /tmp/sfs.lsv
     - name: Build list
       run: |
         perl ./helpers/cleanup.pl /tmp/sfs.lsv > ipv4.txt
