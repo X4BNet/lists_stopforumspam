@@ -17,9 +17,9 @@ jobs:
         sudo apt-get install ipcalc zutils
     - name: Downloading SFS IP list
       run: |
-        curl http://www.stopforumspam.com/downloads/listed_ip_1.zip > /tmp/sfs.lsv.zip
-        unzip /tmp/sfs.lsv.zip
-        mv listed_ip_1.txt /tmp/sfs.lsv
+        curl https://www.stopforumspam.com/downloads/bannedips.zip /tmp/sfs.csv.zip
+        unzip /tmp/sfs.csv.zip
+        cat banned_ips.csv | tr ',' '\n' > /tmp/sfs.lsv
     - name: Build list
       run: |
         perl ./helpers/cleanup.pl /tmp/sfs.lsv > ipv4.txt
