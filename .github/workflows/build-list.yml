@@ -17,9 +17,9 @@ jobs:
         sudo apt-get install ipcalc zutils
     - name: Downloading SFS IP list
       run: |
-        curl https://www.stopforumspam.com/downloads/bannedips.zip >  /tmp/sfs.csv.zip
+        curl https://www.stopforumspam.com/downloads/listed_ip_30.zip >  /tmp/sfs.csv.zip
         unzip /tmp/sfs.csv.zip
-        cat bannedips.csv | tr ',' '\n' > /tmp/sfs.lsv
+        cat listed_ip_30.txt | tr ',' '\n' > /tmp/sfs.lsv
     - name: Build list
       run: |
         perl ./helpers/cleanup.pl /tmp/sfs.lsv > ipv4.txt
@@ -35,11 +35,11 @@ jobs:
         fi
 
         ips_covered=$(awk -F/ 'BEGIN{a=0}{a+=2^(32-$2)}END{print a}' ipv4.txt)
-        if [[ "$ips_covered" -lt 3000 ]]; then
+        if [[ "$ips_covered" -lt 30000 ]]; then
           echo "Too few addresses covered ($ips_covered)"
           exit 1
         fi
-        if [[ "$ips_covered" -gt 30000 ]]; then
+        if [[ "$ips_covered" -gt 60000 ]]; then
           echo "Too many addresses covered ($ips_covered)"
           exit 1
         fi
